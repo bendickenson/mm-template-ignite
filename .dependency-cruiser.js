@@ -1,3 +1,10 @@
+const metroConfig = require("./metro.config.js")
+
+const platforms = ["ios", "android", "web", "native"]
+const extensions = metroConfig?.resolver?.sourceExts.flatMap((pExt) =>
+  platforms.map((platform) => `.${platform}.${pExt}`).concat(`.${pExt}`),
+)
+
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
   forbidden: [
@@ -28,8 +35,8 @@ module.exports = {
           "\\.d\\.ts$",
           "(^|/)tsconfig\\.json$",
           "(^|/)(babel|webpack)\\.config\\.(js|cjs|mjs|ts|json)$",
-          "template\\.config\\.js$", // template config for Ignite CLI
-          "bin/ignite$", // CLI entry point
+          "crashReporting\\.ts$", // Boilerplate file for future crash reporting setup
+          "utils/delay\\.ts$", // Utility function for delaying execution
         ],
       },
       to: {},
@@ -118,12 +125,16 @@ module.exports = {
         "section of your package.json. If this module is development only - add it to the " +
         "from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration",
       from: {
-        path: "^(src)",
+        path: "^(app|src)",
         pathNot: "\\.(spec|test)\\.(js|mjs|cjs|ts|tsx)$",
       },
       to: {
         dependencyTypes: ["npm-dev"],
         pathNot: ["node_modules/@types/"],
+        exoticRequireNot: [
+          "react-native/Libraries/Utilities/codegenNativeComponent",
+          "react-native/Libraries/Utilities/codegenNativeCommands",
+        ],
       },
     },
     {
@@ -164,14 +175,17 @@ module.exports = {
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import", "require", "node", "default"],
-      extensions: [".ts", ".js", ".json"],
+      // React Native / Metro bundler support for platform-specific extensions
+      // See: https://reactnative.dev/docs/platform-specific-code
+      // See: https://github.com/sverweij/dependency-cruiser/issues/511
+      extensions,
     },
     reporterOptions: {
       dot: {
         collapsePattern: "node_modules/(@[^/]+/[^/]+|[^/]+)",
       },
       archi: {
-        collapsePattern: "^(src|test)/[^/]+",
+        collapsePattern: "^(app|src|test)/[^/]+",
       },
       text: {
         highlightFocused: true,

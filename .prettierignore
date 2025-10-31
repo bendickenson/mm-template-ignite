@@ -1,3 +1,9 @@
-/build
-/boilerplate/*
-!/boilerplate/app
+node_modules
+ios
+android
+.expo
+.vscode
+ignite/ignite.json
+package.json
+.eslintignore
+*.ejs

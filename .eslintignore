@@ -1,6 +1,8 @@
 node_modules
+ios
+android
+.expo
 .vscode
-
-**/*.snap
-**/*.txt
-bin/ignite
+ignite/ignite.json
+package.json
+.eslintignore
