@@ -45,7 +45,12 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = function WelcomeScreen(
   return (
     <Screen preset="fixed" contentContainerStyle={$styles.flex1}>
       <View style={themed($topContainer)}>
-        <Image style={themed($welcomeLogo)} source={welcomeLogo} resizeMode="contain" />
+        <Text
+          testID="makermint-title"
+          style={themed($makerMintTitle)}
+          text="Makermint"
+          preset="heading"
+        />
         <Text
           testID="welcome-heading"
           style={themed($welcomeHeading)}
@@ -109,6 +114,14 @@ const $welcomeFace: ImageStyle = {
   right: -80,
   transform: [{ scaleX: isRTL ? -1 : 1 }],
 }
+
+const $makerMintTitle: ThemedStyle<TextStyle> = ({ colors, spacing }) => ({
+  fontSize: 48,
+  fontWeight: "bold",
+  color: colors.palette.primary500,
+  marginBottom: spacing.xl,
+  textAlign: "center",
+})
 
 const $welcomeHeading: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.md,

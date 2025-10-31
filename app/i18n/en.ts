@@ -9,9 +9,9 @@ const en = {
   },
   welcomeScreen: {
     postscript:
-      "psst  — This probably isn't what your app looks like. (Unless your designer handed you these screens, and in that case, ship it!)",
-    readyForLaunch: "Your app, almost ready for launch!",
-    exciting: "(ohh, this is exciting!)",
+      "Built with Makermint - The fastest way to build mobile apps with AI",
+    readyForLaunch: "Welcome to Makermint",
+    exciting: "Your app is ready to customize!",
     letsGo: "Let's go!", // @demo remove-current-line
   },
   errorScreen: {
